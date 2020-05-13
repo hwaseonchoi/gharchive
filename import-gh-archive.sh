@@ -11,3 +11,4 @@ else
 	echo "$FILE" exists already
 fi
 
+mongo admin -u root -p rootpassword
