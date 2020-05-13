@@ -7,6 +7,7 @@ RUN apt-get update \
 RUN pecl install mongodb
 
 COPY php.ini /etc/php/7.4/php.ini
+COPY php.ini /usr/local/etc/php/php.ini
 COPY php-fpm-pool.conf /etc/php/7.4/pool.d/www.conf
 
 RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls && \

@@ -1,6 +1,10 @@
 
 .idea
 
+!/docker/logs/nginx/README.md
+/docker/logs/nginx/*
+
+
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
