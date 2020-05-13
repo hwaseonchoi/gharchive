@@ -12,7 +12,7 @@ I thank Yousign team to offer me the chance to challenge this.
 docker-compose build
 docker-compose up
 ```
-
+https://dev.to/sonyarianto/how-to-spin-mongodb-server-with-docker-and-docker-compose-2lef
 * In another terminal (inside container):
 
 ```bash
@@ -20,5 +20,11 @@ docker exec -it -w /var/www php-fpm /bin/bash
 composer install
 ```
 
+* To access mongo shell
+```bash
+docker exec -it project-yousign_mongodb_container_1 /bin/sh
+```
+
 ## Documentations
-[Symfony 5 & Docker](https://dev.to/martinpham/symfony-5-development-with-docker-4hj8)
+- [Symfony 5 & Docker](https://dev.to/martinpham/symfony-5-development-with-docker-4hj8)   
+- [MongoDB with Docker](https://dev.to/sonyarianto/how-to-spin-mongodb-server-with-docker-and-docker-compose-2lef)

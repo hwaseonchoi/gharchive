@@ -6,7 +6,6 @@ RUN apt-get update \
     gnupg gnupg1 gnupg2
 RUN pecl install mongodb
 
-COPY php.ini /etc/php/7.4/php.ini
 COPY php.ini /usr/local/etc/php/php.ini
 COPY php-fpm-pool.conf /etc/php/7.4/pool.d/www.conf
 
