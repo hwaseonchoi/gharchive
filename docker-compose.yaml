@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  mongodb_container:
+  mongo:
     image: mongo:latest
     container_name: mongo
     environment:
@@ -23,6 +23,8 @@ services:
       - PROJECT_PATH=$PWD
     ports:
       - 9000:9000
+    links:
+      - mongo:mongo
 
   nginx:
     build:

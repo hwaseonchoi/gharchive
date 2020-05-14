@@ -3,7 +3,8 @@ FROM php:7.4-fpm
 RUN apt-get update \
     && apt-get install -y --no-install-recommends vim curl debconf git apt-transport-https apt-utils \
     build-essential locales acl mailutils wget zip unzip \
-    gnupg gnupg1 gnupg2
+    gnupg gnupg1 gnupg2 \
+    libcurl4-openssl-dev pkg-config libssl-dev
 RUN pecl install mongodb
 
 COPY php.ini /usr/local/etc/php/php.ini
