@@ -4,6 +4,7 @@
 !/docker/logs/nginx/README.md
 /docker/logs/nginx/*
 
+/mongo.txt
 
 ###> symfony/framework-bundle ###
 /.env.local
