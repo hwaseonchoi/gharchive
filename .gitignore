@@ -4,6 +4,8 @@
 !/docker/logs/nginx/README.md
 /docker/logs/nginx/*
 
+/docker/mongo/shared/*.json
+
 /mongo.txt
 
 ###> symfony/framework-bundle ###
