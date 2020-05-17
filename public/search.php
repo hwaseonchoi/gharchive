@@ -36,6 +36,8 @@ $count = $collection->countDocuments([ '$text' => ['$search' => $searchTerm ]]);
                     <th>actor_login</th>
                     <th>repo_name</th>
                     <th>text_type</th>
+                    <th>created_at</th>
+                    <th>pull_request_id</th>
                     <th>text</th>
                 </tr>
             </thead>
@@ -48,6 +50,8 @@ $count = $collection->countDocuments([ '$text' => ['$search' => $searchTerm ]]);
                 echo '<td>' . $entry['actor_login'] . '</td>';
                 echo '<td>' . $entry['repo_name'] . '</td>';
                 echo '<td>' . $entry['text_type'] . '</td>';
+                echo '<td>' . $entry['created_at'] . '</td>';
+                echo '<td>' . $entry['pull_request_id'] . '</td>';
                 echo '<td><pre>' . $entry['text'] . '</pre></td>';
                 echo '</tr>';
             }

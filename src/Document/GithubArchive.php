@@ -39,11 +39,16 @@ class GithubArchive
      * @MongoDB\Field(type="string", name="text_type")
      */
     public $messageType;
-//
-//    /**
-//     * @MongoDB\Field(type="datetime")
-//     */
-//    public $createdAt;
+
+    /**
+     * @MongoDB\Field(type="string", name="created_at")
+     */
+    public $createdAt;
+
+    /**
+     * @MongoDB\Field(type="string", name="pull_request_id")
+     */
+    public $pullRequestId;
 
     /**
      * @return mixed
@@ -132,21 +137,36 @@ class GithubArchive
     {
         $this->messageType = $messageType;
     }
-//
-//    /**
-//     * @return mixed
-//     */
-//    public function getCreatedAt()
-//    {
-//        return $this->createdAt;
-//    }
-//
-//    /**
-//     * @param mixed $createdAt
-//     */
-//    public function setCreatedAt($createdAt): void
-//    {
-//        $this->createdAt = $createdAt;
-//    }
 
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param mixed $createdAt
+     */
+    public function setCreatedAt($createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPullRequestId()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param mixed $pullRequestId
+     */
+    public function setPullRequestId($pullRequestId): void
+    {
+        $this->pullRequestId = $pullRequestId;
+    }
 }
