@@ -30,6 +30,8 @@ echo
 docker exec -w /shared mongo /usr/bin/mongoimport -u root -p rootpassword \
     --authenticationDatabase admin \
     --db test --collection gharchive_raw \
+    --file 2019-05-14-10.json \
+    --file 2019-05-15-10.json \
     --file $(date -v -1y '+%Y-%m-%d')-10.json
 
 echo
