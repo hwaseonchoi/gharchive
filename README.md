@@ -55,3 +55,4 @@ Go to http://localhost:81/search and try with any keywords.
 - [mongodb/mongodb - Lib for PHP](https://github.com/mongodb/mongo-php-library)
 - [Doctrine Mongodb ODM](https://www.doctrine-project.org/projects/doctrine-mongodb-odm/en/latest/reference/introduction.html#setup)
 - [MongoDB query select filter child nessted array](https://techbrij.com/mongodb-query-select-filter-child-nested-array)
+- [Time series data](https://www.mongodb.com/blog/post/time-series-data-and-mongodb-part-2-schema-design-best-practices)
