@@ -120,21 +120,21 @@
 
                 <div class="row">
 
-{#                    <!-- Area Chart -->#}
-{#                    <div class="col-lg-6">#}
-{#                        <div class="card shadow mb-4">#}
-{#                            <!-- Card Header - Dropdown -->#}
-{#                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">#}
-{#                                <h6 class="m-0 font-weight-bold text-primary">Répartition horaire</h6>#}
-{#                            </div>#}
-{#                            <!-- Card Body -->#}
-{#                            <div class="card-body">#}
-{#                                <div class="chart-area">#}
-{#                                    <canvas id="myAreaChart"></canvas>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
+                    <!-- Area Chart -->
+                    <div class="col-lg-6">
+                        <div class="card shadow mb-4">
+                            <!-- Card Header - Dropdown -->
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">Répartition par évènement</h6>
+                            </div>
+                            <!-- Card Body -->
+                            <div class="card-body">
+                                <div class="chart-area">
+                                    <canvas id="myAreaChart">test</canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- Table -->
                     <div class="col-lg-6">
@@ -198,12 +198,15 @@
     Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
     Chart.defaults.global.defaultFontColor = '#858796';
 
+    var commitNumber = '{{ model.message.commit }}';
+    var pullRequestNumber = '{{ model.message.pull_request }}';
+    var commentNumber = '{{ model.message.comment }}';
     // Area Chart Example
     var ctx = document.getElementById("myAreaChart");
     var myLineChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
+            labels: [, , ,],
             datasets: [{
                 label: "Commits",
                 lineTension: 0.3,
@@ -217,7 +220,7 @@
                 pointHoverBorderColor: "rgba(78, 115, 223, 1)",
                 pointHitRadius: 10,
                 pointBorderWidth: 2,
-                data: [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000, 0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],
+                data: [commitNumber, null, null],
             },
                 {
                     label: "Pull Request",
@@ -232,7 +235,7 @@
                     pointHoverBorderColor: "#1cc88a",
                     pointHitRadius: 10,
                     pointBorderWidth: 2,
-                    data: [0, 1000, 500, 1500, 1000, 2000, 1500, 2500, 2000, 3000, 2500, 4000, 0, 1000, 500, 1500, 1000, 2000, 1500, 2500, 2000, 3000, 2500, 4000],
+                    data: [null, pullRequestNumber, null],
                 },
                 {
                     label: "Commentaires",
@@ -247,7 +250,7 @@
                     pointHoverBorderColor: "#f6c23e",
                     pointHitRadius: 10,
                     pointBorderWidth: 2,
-                    data: [0 * 0.56, 10000 * 0.56, 5000 * 0.56, 15000 * 0.56, 10000 * 0.56, 20000 * 0.56, 15000 * 0.56, 25000 * 0.56, 20000 * 0.56, 30000 * 0.56, 25000 * 0.56, 40000 * 0.56, 0 * 0.56, 10000 * 0.56, 5000 * 0.56, 15000 * 0.56, 10000 * 0.56, 20000 * 0.56, 15000 * 0.56, 25000 * 0.56, 20000 * 0.56, 30000 * 0.56, 25000 * 0.56, 40000 * 0.56],
+                    data: [null, null, commentNumber],
                 }],
         },
         options: {
