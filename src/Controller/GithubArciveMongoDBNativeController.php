@@ -20,7 +20,7 @@ class GithubArciveMongoDBNativeController extends AbstractController
      */
     public function find(Request $request, GithubArchiveManager $githubArchiveManager): Response
     {
-        $query = $request->query->get('q');
+        $query = $request->query->get('q', '');
 
         $results = [
             'search' => $query,
