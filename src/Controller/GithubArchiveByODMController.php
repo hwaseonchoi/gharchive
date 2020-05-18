@@ -13,8 +13,10 @@ class GithubArchiveByODMController extends AbstractController
 {
     /**
      * @Route("/search-by-odm", name="search_by_odm")
+     *
      * @param Request $request
      * @param DocumentManager $dm
+     *
      * @return Response
      */
     public function search(Request $request, DocumentManager $dm)

@@ -13,7 +13,7 @@ class GithubArchiveManager
         $this->mongoDB = $mongoDB;
     }
 
-    public function countCommitAndCommentByText(string $text): array
+    public function countCommitAndCommentByText(string $text, string $date): array
     {
         $datas = [
             'commit' => 0,
@@ -21,7 +21,7 @@ class GithubArchiveManager
             'pull_request' => 0,
         ];
 
-        $data = $this->mongoDB->countGroupByTextType($text);
+        $data = $this->mongoDB->countGroupByTextType($text, $date);
         foreach ($data as $v) {
             $datas[$v->_id] = $v->count;
         }
@@ -29,10 +29,10 @@ class GithubArchiveManager
         return $datas;
     }
 
-    public function findCommitsByTextAndDate(string $text, string $date = null): array
+    public function findCommitsByTextAndDate(string $text, string $date): array
     {
         $results = [];
-        $data = $this->mongoDB->findCommitsByTextAndDate($text, '2019-04-01');
+        $data = $this->mongoDB->findCommitsByTextAndDate($text, $date);
 
         foreach($data as $v) {
             $result = [];
@@ -47,8 +47,8 @@ class GithubArchiveManager
         return $results;
     }
 
-    public function countTotalBy(string $text, string $date = null): int
+    public function countTotalBy(string $text, string $date): int
     {
-        return $this->mongoDB->countTotalBy($text);
+        return $this->mongoDB->countTotalBy($text, $date);
     }
 }

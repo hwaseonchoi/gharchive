@@ -1,8 +1,8 @@
-// Création de la collection gharchive
+// Creation of github archives related collections
 db.createCollection("gharchive_raw")
 db.createCollection("gharchive")
 
-// Indexation texte du champ "text" de la collection gharchive
+// Indexation text of field body and title
 db.gharchive.createIndex(
     {
         body: "text",

@@ -1,4 +1,4 @@
-// import des messages de commits dans la collection gharchive_increment
+// Import commit messages in the collection gharchive_raw
 db.gharchive_raw.aggregate(
     {
         "$unwind": "$payload.commits"
@@ -21,7 +21,7 @@ db.gharchive_raw.aggregate(
     }
 );
 
-// import des commentaires des pull request dans la collection gharchive
+// Import pull request comments in the collection gharchive
 db.gharchive_raw.aggregate(
     {
         "$match": { "type": "PullRequestReviewCommentEvent"}
@@ -43,6 +43,7 @@ db.gharchive_raw.aggregate(
     }
 )
 
+// Import pull request data
 db.gharchive_raw.aggregate(
     {
         "$match": { "type": "PullRequestEvent"}

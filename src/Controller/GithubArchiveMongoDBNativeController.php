@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class GithubArciveMongoDBNativeController extends AbstractController
+class GithubArchiveMongoDBNativeController extends AbstractController
 {
     /**
      * @Route("/search", name="search")
@@ -28,9 +28,9 @@ class GithubArciveMongoDBNativeController extends AbstractController
                 'text' => $query,
                 'date' => $date
             ],
-            'total' => $githubArchiveManager->countTotalBy($query),
-            'message' => $githubArchiveManager->countCommitAndCommentByText($query),
-            'commits' => $githubArchiveManager->findCommitsByTextAndDate($query, '2019-04-01'),
+            'total' => $githubArchiveManager->countTotalBy($query, $date),
+            'message' => $githubArchiveManager->countCommitAndCommentByText($query, $date),
+            'commits' => $githubArchiveManager->findCommitsByTextAndDate($query, $date),
         ];
 
         return $this->render('index.html.twig', ['model' => $results]);

@@ -10,8 +10,8 @@ class MongoDBService
 {
     private const BASE_NAME = 'test';
     private const GHARCHIVE_COLLECTION = 'gharchive';
-    private const PULL_REQUEST_EVENT = 'PullRequestEvent';
-    private const PUSH_EVENT = 'PushEvent';
+  //  private const PULL_REQUEST_EVENT = 'PullRequestEvent';
+    public const PUSH_EVENT = 'PushEvent';
 
     private $database;
 
@@ -33,22 +33,30 @@ class MongoDBService
         return $ghArchiveCollection->find(['$text' => ['$search' => $param]]);
     }
 
-    public function countTotalBy(string $param): int
+    public function countTotalBy(string $param, string $date): int
     {
         $ghArchiveCollection = $this->getCollection(self::GHARCHIVE_COLLECTION);
 
-        return $ghArchiveCollection->countDocuments([ '$text' => ['$search' => $param]]);
+        return $ghArchiveCollection->countDocuments(
+            [
+                '$text' => ['$search' => $param],
+                'created_at' => [
+                    '$regex' => '^'.$date
+                ]
+            ]
+        );
     }
 
-    public function countGroupByTextType(string $param): \Traversable
+    public function countGroupByTextType(string $param, string $date): \Traversable
     {
         $ghArchiveCollection = $this->getCollection(self::GHARCHIVE_COLLECTION);
 
         return $ghArchiveCollection->aggregate([
             [
                 '$match' => [
-                    '$text' => [
-                    '$search' => $param
+                    '$text' => ['$search' => $param],
+                    'created_at' => [
+                        '$regex' => '^'.$date
                     ]
                 ]
             ],
@@ -58,21 +66,20 @@ class MongoDBService
                     'count' => [ '$sum' => 1 ]
                 ]
             ]
-                ]
-        );
+        ]);
     }
 
-    public function findPullRequestByText(string $param): int
-    {
-        $ghArchiveCollection = $this->getCollection(self::GHARCHIVE_COLLECTION);
-
-        return $ghArchiveCollection->countDocuments(
-                [
-                    '$text' => ['$search' => $param],
-                    'type'=> self::PULL_REQUEST_EVENT,
-                ]
-        );
-    }
+//    public function findPullRequestByText(string $param): int
+//    {
+//        $ghArchiveCollection = $this->getCollection(self::GHARCHIVE_COLLECTION);
+//
+//        return $ghArchiveCollection->countDocuments(
+//                [
+//                    '$text' => ['$search' => $param],
+//                    'type'=> self::PULL_REQUEST_EVENT,
+//                ]
+//        );
+//    }
 
     public function findCommitsByTextAndDate(string $text, string $date): Cursor
     {

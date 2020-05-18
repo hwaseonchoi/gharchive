@@ -41,6 +41,14 @@ docker exec -it mongo /bin/sh
 ## Test
 Go to http://localhost:81/search and try with any keywords. 
 
+## Architecture
+![diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/hwaseonchoi/project-yousign/master/architecture.puml)
+
+- Use of MongoDB to store, process and query github archive json data
+- Use of docker to power a application platform together with nginx, php-fpm and mongo images
+- Importation of data with shell script and cli commands
+- Front app with PHP & Symfony 5
+
 ## Documentations
 - [Symfony 5 & Docker](https://dev.to/martinpham/symfony-5-development-with-docker-4hj8)   
 - [MongoDB with Docker](https://dev.to/sonyarianto/how-to-spin-mongodb-server-with-docker-and-docker-compose-2lef)
