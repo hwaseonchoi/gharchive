@@ -17,7 +17,7 @@ I thank Yousign team to offer me the chance to challenge this.
 docker-compose build
 docker-compose up
 ```
-https://dev.to/sonyarianto/how-to-spin-mongodb-server-with-docker-and-docker-compose-2lef
+
 * In another terminal (inside container):
 
 ```bash
@@ -44,6 +44,6 @@ Go to http://localhost:81/search and try with any keywords.
 ## Documentations
 - [Symfony 5 & Docker](https://dev.to/martinpham/symfony-5-development-with-docker-4hj8)   
 - [MongoDB with Docker](https://dev.to/sonyarianto/how-to-spin-mongodb-server-with-docker-and-docker-compose-2lef)
-- [Mongodb/mongodb for PHP](https://github.com/mongodb/mongo-php-library)
+- [mongodb/mongodb - Lib for PHP](https://github.com/mongodb/mongo-php-library)
 - [Doctrine Mongodb ODM](https://www.doctrine-project.org/projects/doctrine-mongodb-odm/en/latest/reference/introduction.html#setup)
 - [MongoDB query select filter child nessted array](https://techbrij.com/mongodb-query-select-filter-child-nested-array)
