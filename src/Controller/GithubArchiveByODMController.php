@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class GithubArchiveByODMController extends AbstractController
 {
     /**
-     * @Route("/search", name="search")
+     * @Route("/search-by-odm", name="search_by_odm")
      * @param Request $request
      * @param DocumentManager $dm
      * @return Response

@@ -10,9 +10,8 @@ db.gharchive_raw.aggregate(
             "type" : 1,
             "actor_login" : "$actor.login",
             "repo_name" : "$repo.name",
-            "text" : "$payload.commits.message",
-            "text_type" : "commit", // type de message
-            "pull_request_id": 'NA',
+            "body" : "$payload.commits.message",
+            "message_type" : "commit", // type de message
             "created_at": "$created_at"
         }
     },
@@ -32,8 +31,30 @@ db.gharchive_raw.aggregate(
             "type" : 1,
             "actor_login" : "$actor.login",
             "repo_name" : "$repo.name",
-            "text" : "$payload.comment.body",
-            "text_type" : "comment",
+            "body" : "$payload.comment.body",
+            "message_type" : "comment",
+            "pull_request_id": "$payload.pull_request.id",
+            "created_at": "$created_at"
+        }
+    },
+    {
+        "$merge": { into: "gharchive", on: "_id", whenMatched: "keepExisting", whenNotMatched: "insert" }
+    }
+)
+
+db.gharchive_raw.aggregate(
+    {
+        "$match": { "type": "PullRequestEvent"}
+    },
+    {
+        "$project": {
+            _id: "$payload.pull_request.id",
+            "type" : 1,
+            "actor_login" : "$actor.login",
+            "repo_name" : "$repo.name",
+            "title" : "$payload.pull_request.title",
+            "body" : "$payload.pull_request.body",
+            "message_type" : "pull_request",
             "pull_request_id": "$payload.pull_request.id",
             "created_at": "$created_at"
         }

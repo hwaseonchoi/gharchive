@@ -1,28 +1,34 @@
 <?php
 
-
 namespace App\Controller;
 
-use App\Service\MongoDBService;
+use App\Manager\GithubArchiveManager;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class GithubArciveMongoDBNativeController
+class GithubArciveMongoDBNativeController extends AbstractController
 {
     /**
-     * @Route("/find", name="find")
+     * @Route("/search", name="search")
+     *
      * @param Request $request
-     * @param MongoDBService $mongoDB
+     * @param GithubArchiveManager $githubArchiveManager
+     *
      * @return Response
      */
-    public function find(Request $request, MongoDBService $mongoDB)
+    public function find(Request $request, GithubArchiveManager $githubArchiveManager): Response
     {
         $query = $request->query->get('q');
 
-        $lists = $mongoDB->findBy($query);
-        $count = $mongoDB->countBy($query);
+        $results = [
+            'search' => $query,
+            'total' => $githubArchiveManager->countTotalBy($query),
+            'message' => $githubArchiveManager->countCommitAndCommentByText($query),
+            'commits' => $githubArchiveManager->findCommitsByTextAndDate($query, '2019-05-17'),
+        ];
 
-        return new Response('total count : '. $count, 200);
+        return $this->render('index.html.twig', ['model' => $results]);
     }
 }

@@ -33,10 +33,62 @@ class MongoDBService
         return $ghArchiveCollection->find(['$text' => ['$search' => $param]]);
     }
 
-    public function countBy(string $param): int
+    public function countTotalBy(?string $param): int
     {
         $ghArchiveCollection = $this->getCollection(self::GHARCHIVE_COLLECTION);
 
         return $ghArchiveCollection->countDocuments([ '$text' => ['$search' => $param]]);
+    }
+
+    public function countGroupByTextType(string $param)
+    {
+        $ghArchiveCollection = $this->getCollection(self::GHARCHIVE_COLLECTION);
+
+        return $ghArchiveCollection->aggregate([
+            [
+                '$match' => [
+                    '$text' => [
+                    '$search' => $param
+                    ]
+                ]
+            ],
+            [
+                '$group' => [
+                    '_id' => '$message_type',
+                    'count' => [ '$sum' => 1 ]
+                ]
+            ]
+                ]
+        );
+    }
+
+    public function findPullRequestByText(string $param)
+    {
+        $ghArchiveCollection = $this->getCollection(self::GHARCHIVE_COLLECTION);
+
+        return $ghArchiveCollection->countDocuments(
+                [
+                    '$text' => ['$search' => $param],
+                    'type'=> 'PullRequestEvent',
+                ]
+        );
+    }
+
+    public function findCommitsByTextAndDate(string $text, string $date)
+    {
+        $ghArchiveCollection = $this->getCollection(self::GHARCHIVE_COLLECTION);
+
+        return $ghArchiveCollection->find(
+            [
+                '$text' => ['$search' => $text],
+                'type'=> 'PushEvent',
+                'created_at' => [
+                    '$regex' => '^'.$date
+                ]
+            ],
+            [
+                'limit' => 5,
+            ]
+        );
     }
 }
