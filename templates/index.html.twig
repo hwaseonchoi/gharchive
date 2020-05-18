@@ -52,10 +52,6 @@
                 <div class="alert alert-info">
                     Commencez par saisir une date et un mot-clé ci-dessus. <i class="far fa-hand-point-up"></i>
                 </div>
-                <div class="alert alert-danger">
-                    Oops ! On dirait qu'il y a eu une erreur !
-                </div>
-
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-800">
@@ -125,7 +121,7 @@
                         <div class="card shadow mb-4">
                             <!-- Card Header - Dropdown -->
                             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">Répartition par évènement</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Répartition par évnement</h6>
                             </div>
                             <!-- Card Body -->
                             <div class="card-body">
@@ -198,15 +194,19 @@
     Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
     Chart.defaults.global.defaultFontColor = '#858796';
 
-    var commitNumber = '{{ model.message.commit }}';
-    var pullRequestNumber = '{{ model.message.pull_request }}';
-    var commentNumber = '{{ model.message.comment }}';
+    {#var commitNumber = '{{ model.message.commit }}';#}
+    {#var pullRequestNumber = '{{ model.message.pull_request }}';#}
+    {#var commentNumber = '{{ model.message.comment }}';#}
+    var labels = {{ model.graph.dates|json_encode() }};
+    var commits = {{ model.graph.commits|json_encode() }};
+    var comments = {{ model.graph.comments|json_encode() }};
+    var pull_requests = {{ model.graph.pull_requests|json_encode() }};
     // Area Chart Example
     var ctx = document.getElementById("myAreaChart");
     var myLineChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: [, , ,],
+            labels: labels,
             datasets: [{
                 label: "Commits",
                 lineTension: 0.3,
@@ -220,7 +220,7 @@
                 pointHoverBorderColor: "rgba(78, 115, 223, 1)",
                 pointHitRadius: 10,
                 pointBorderWidth: 2,
-                data: [commitNumber, null, null],
+                data: commits,
             },
                 {
                     label: "Pull Request",
@@ -235,7 +235,7 @@
                     pointHoverBorderColor: "#1cc88a",
                     pointHitRadius: 10,
                     pointBorderWidth: 2,
-                    data: [null, pullRequestNumber, null],
+                    data: pull_requests,
                 },
                 {
                     label: "Commentaires",
@@ -250,7 +250,7 @@
                     pointHoverBorderColor: "#f6c23e",
                     pointHitRadius: 10,
                     pointBorderWidth: 2,
-                    data: [null, null, commentNumber],
+                    data: comments,
                 }],
         },
         options: {

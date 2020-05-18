@@ -39,8 +39,8 @@ class GithubArchiveManager
             $result['id'] = $v->_id;
             $result['repo_name'] = $v->repo_name;
             $result['body'] = $v->body;
-            $result['body_url'] = $v->body_url;
-            $result['repo_url'] = $v->repo_url;
+            $result['body_url'] = 'https://www.github.com/'.$v->repo_name.'/commit/'.$v->_id;
+            $result['repo_url'] = 'https://www.github.com/'.$v->repo_name;
             $results[] = $result;
         }
 
@@ -50,5 +50,20 @@ class GithubArchiveManager
     public function countTotalBy(string $text, string $date): int
     {
         return $this->mongoDB->countTotalBy($text, $date);
+    }
+
+    public function filterAllTypesDataByHours(string $text, string $date): array
+    {
+        $result = [];
+        $data = $this->mongoDB->filterAllTypesDataByHours($text, $date);
+
+        foreach ($data as $d) {
+            $result['dates'] = array_map(static function($e) { return (int) $e;}, $d->dates->jsonSerialize());
+            $result['commits'] = $d->commits->jsonSerialize();
+            $result['comments'] = $d->comments->jsonSerialize();
+            $result['pull_requests'] = $d->pull_requests->jsonSerialize();
+        }
+
+        return $result;
     }
 }

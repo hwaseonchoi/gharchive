@@ -23,15 +23,26 @@ class GithubArchiveMongoDBNativeController extends AbstractController
         $query = $request->query->get('q', '');
         $date = $request->query->get('date', '2019-04-01');
 
-        $results = [
-            'search' => [
-                'text' => $query,
-                'date' => $date
-            ],
-            'total' => $githubArchiveManager->countTotalBy($query, $date),
-            'message' => $githubArchiveManager->countCommitAndCommentByText($query, $date),
-            'commits' => $githubArchiveManager->findCommitsByTextAndDate($query, $date),
-        ];
+        if (!$query) {
+            $results = [
+                'search' =>['text'=>'', 'date'=>$date],
+                'total'=> 0,
+                'message' => ['commit'=>0, 'comment'=>0, 'pull_request'=>0],
+                'commits'=> [],
+                'graph' => ['dates'=>[],'commits'=>[], 'comments'=>[], 'pull_requests'=>[] ]
+                ];
+        } else {
+            $results = [
+                'search' => [
+                    'text' => $query,
+                    'date' => $date
+                ],
+                'total' => $githubArchiveManager->countTotalBy($query, $date),
+                'message' => $githubArchiveManager->countCommitAndCommentByText($query, $date),
+                'commits' => $githubArchiveManager->findCommitsByTextAndDate($query, $date),
+                'graph' => $githubArchiveManager->filterAllTypesDataByHours($query, $date),
+            ];
+        }
 
         return $this->render('index.html.twig', ['model' => $results]);
     }

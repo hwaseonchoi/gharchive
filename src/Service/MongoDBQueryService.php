@@ -86,4 +86,44 @@ class MongoDBQueryService
             ]
         );
     }
+
+    public function filterAllTypesDataByHours(string $param, string $date): \Traversable
+    {
+        $ghArchiveCollection = $this->getCollection(self::GHARCHIVE_COLLECTION);
+
+        return $ghArchiveCollection->aggregate(
+            [
+                [
+                    '$match' => [
+                        '$text' => ['$search' => $param],
+                        'created_at' => [
+                            '$regex' => '^'.$date
+                        ]
+                    ]
+                ],
+                [
+                    '$group' => [
+                        '_id' => [ '$substr' => [ '$created_at', 11, 2 ] ],
+                        'count' => [ '$sum' => 1 ],
+                        'commits' => [ '$sum' => [ '$cond' => [ [ '$eq' => [ '$message_type', 'commit' ] ], 1, 0 ] ] ],
+                        'comments' => [ '$sum' => [ '$cond' => [ [ '$eq' => [ '$message_type', 'comment' ] ], 1, 0 ] ] ],
+                        'pull_requests' => [ '$sum' => [ '$cond' => [ [ '$eq' => [ '$message_type', 'pull_request' ] ], 1, 0 ] ] ],
+                    ]
+                ],
+                [
+                    '$sort' => ['_id'=> 1]
+                ],
+                [
+                    '$group' => [
+                        '_id' => null,
+                        'dates' => ['$push' => '$_id'],
+                        'counts' => [ '$push' => '$count' ],
+                        'commits' => [ '$push' => '$commits'],
+                        'comments' => [ '$push' => '$comments'],
+                        'pull_requests' => [ '$push' => '$pull_requests'],
+                    ]
+                ],
+            ]
+        );
+    }
 }
