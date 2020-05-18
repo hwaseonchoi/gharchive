@@ -32,12 +32,12 @@
 
                 <!-- Topbar Search -->
                 <form class="form-inline navbar-search">
-{#                    <input class="form-control mr-2" type="date" value="2018-02-14">#}
+                    <input class="form-control mr-2" name="date" type="date" value="{{ model.search.date }}">
 
                     <div class="input-group">
                         <input type="text" name="q" class="form-control bg-light border-0 small" placeholder="Mot-clé" aria-label="Mot-clé" aria-describedby="basic-addon2">
                         <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">
+                            <button class="btn btn-primary" type="submit">
                                 <i class="fas fa-search fa-sm"></i>
                             </button>
                         </div>
@@ -59,7 +59,7 @@
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-800">
-                        <b>{{ model.total }}</b> évènements ont été trouvés pour le <b>14 février 2018</b> et le mot-clé <b>{{ model.search }}</b>.
+                        <b>{{ model.total }}</b> évènements ont été trouvés pour le <b>{{ model.search.date }}</b> et le mot-clé <b>{{ model.search.text }}</b>.
                     </h1>
                 </div>
 

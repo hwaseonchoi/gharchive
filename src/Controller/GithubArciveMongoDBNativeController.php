@@ -21,12 +21,16 @@ class GithubArciveMongoDBNativeController extends AbstractController
     public function find(Request $request, GithubArchiveManager $githubArchiveManager): Response
     {
         $query = $request->query->get('q', '');
+        $date = $request->query->get('date', '2019-04-01');
 
         $results = [
-            'search' => $query,
+            'search' => [
+                'text' => $query,
+                'date' => $date
+            ],
             'total' => $githubArchiveManager->countTotalBy($query),
             'message' => $githubArchiveManager->countCommitAndCommentByText($query),
-            'commits' => $githubArchiveManager->findCommitsByTextAndDate($query, '2019-05-17'),
+            'commits' => $githubArchiveManager->findCommitsByTextAndDate($query, '2019-04-01'),
         ];
 
         return $this->render('index.html.twig', ['model' => $results]);

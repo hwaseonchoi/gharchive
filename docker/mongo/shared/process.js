@@ -5,7 +5,6 @@ db.gharchive_raw.aggregate(
     },
     {
         "$project": {
-         //   _id: "$payload.commits.sha", // identifie l'élément
             _id: "$payload.commits.sha",
             "type" : 1,
             "actor_login" : "$actor.login",
