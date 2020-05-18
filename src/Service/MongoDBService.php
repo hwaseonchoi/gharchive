@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Service;
-
 
 use MongoDB\Client;
 use MongoDB\Collection;
@@ -12,6 +10,8 @@ class MongoDBService
 {
     private const BASE_NAME = 'test';
     private const GHARCHIVE_COLLECTION = 'gharchive';
+    private const PULL_REQUEST_EVENT = 'PullRequestEvent';
+    private const PUSH_EVENT = 'PushEvent';
 
     private $database;
 
@@ -33,14 +33,14 @@ class MongoDBService
         return $ghArchiveCollection->find(['$text' => ['$search' => $param]]);
     }
 
-    public function countTotalBy(?string $param): int
+    public function countTotalBy(string $param): int
     {
         $ghArchiveCollection = $this->getCollection(self::GHARCHIVE_COLLECTION);
 
         return $ghArchiveCollection->countDocuments([ '$text' => ['$search' => $param]]);
     }
 
-    public function countGroupByTextType(string $param)
+    public function countGroupByTextType(string $param): \Traversable
     {
         $ghArchiveCollection = $this->getCollection(self::GHARCHIVE_COLLECTION);
 
@@ -62,26 +62,26 @@ class MongoDBService
         );
     }
 
-    public function findPullRequestByText(string $param)
+    public function findPullRequestByText(string $param): int
     {
         $ghArchiveCollection = $this->getCollection(self::GHARCHIVE_COLLECTION);
 
         return $ghArchiveCollection->countDocuments(
                 [
                     '$text' => ['$search' => $param],
-                    'type'=> 'PullRequestEvent',
+                    'type'=> self::PULL_REQUEST_EVENT,
                 ]
         );
     }
 
-    public function findCommitsByTextAndDate(string $text, string $date)
+    public function findCommitsByTextAndDate(string $text, string $date): Cursor
     {
         $ghArchiveCollection = $this->getCollection(self::GHARCHIVE_COLLECTION);
 
         return $ghArchiveCollection->find(
             [
                 '$text' => ['$search' => $text],
-                'type'=> 'PushEvent',
+                'type'=> self::PUSH_EVENT,
                 'created_at' => [
                     '$regex' => '^'.$date
                 ]

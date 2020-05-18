@@ -7,12 +7,13 @@ use App\Service\MongoDBService;
 class GithubArchiveManager
 {
     public $mongoDB;
+
     public function __construct(MongoDBService $mongoDB)
     {
         $this->mongoDB = $mongoDB;
     }
 
-    public function countCommitAndCommentByText(string $text)
+    public function countCommitAndCommentByText(string $text): array
     {
         $datas = [
             'commit' => 0,
@@ -28,7 +29,7 @@ class GithubArchiveManager
         return $datas;
     }
 
-    public function findCommitsByTextAndDate(string $text, string $date = null)
+    public function findCommitsByTextAndDate(string $text, string $date = null): array
     {
         $results = [];
         $data = $this->mongoDB->findCommitsByTextAndDate($text, '2019-05-17');
@@ -44,7 +45,7 @@ class GithubArchiveManager
         return $results;
     }
 
-    public function countTotalBy(?string $text, string $date = null)
+    public function countTotalBy(string $text, string $date = null): int
     {
         return $this->mongoDB->countTotalBy($text);
     }
