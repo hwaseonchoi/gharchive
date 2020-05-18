@@ -21,6 +21,7 @@ https://dev.to/sonyarianto/how-to-spin-mongodb-server-with-docker-and-docker-com
 
 ```bash
 docker exec -it -w /var/www php-fpm /bin/bash
+cd var/www/
 composer install
 ```
 
@@ -33,6 +34,9 @@ composer install
 ```bash
 docker exec -it mongo /bin/sh
 ```
+
+## Test
+Go to http://localhost:81/search and try with any keywords. 
 
 ## Documentations
 - [Symfony 5 & Docker](https://dev.to/martinpham/symfony-5-development-with-docker-4hj8)   
