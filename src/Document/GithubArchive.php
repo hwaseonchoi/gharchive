@@ -5,7 +5,7 @@ namespace App\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
- * @Todo can map more fields based on process.js structure
+ * @todo can map more fields based on process.js structure
  * @MongoDB\Document(db="test", collection="gharchive")
  */
 class GithubArchive
