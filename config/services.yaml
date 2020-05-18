@@ -27,12 +27,12 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-    App\Service\MongoDBService:
-        class: App\Service\MongoDBService
+    App\Service\MongoDBQueryService:
+        class: App\Service\MongoDBQueryService
         arguments:
             $connection: '%env(MONGODB_URL)%'
 
     App\Manager\GithubArchiveManager:
         arguments:
-            $mongoDB: '@App\Service\MongoDBService'
+            $mongoDB: '@App\Service\MongoDBQueryService'
 

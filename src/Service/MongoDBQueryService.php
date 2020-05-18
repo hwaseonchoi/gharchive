@@ -6,11 +6,11 @@ use MongoDB\Client;
 use MongoDB\Collection;
 use MongoDB\Driver\Cursor;
 
-class MongoDBService
+class MongoDBQueryService
 {
     private const BASE_NAME = 'test';
     private const GHARCHIVE_COLLECTION = 'gharchive';
-  //  private const PULL_REQUEST_EVENT = 'PullRequestEvent';
+
     public const PUSH_EVENT = 'PushEvent';
 
     private $database;
@@ -68,18 +68,6 @@ class MongoDBService
             ]
         ]);
     }
-
-//    public function findPullRequestByText(string $param): int
-//    {
-//        $ghArchiveCollection = $this->getCollection(self::GHARCHIVE_COLLECTION);
-//
-//        return $ghArchiveCollection->countDocuments(
-//                [
-//                    '$text' => ['$search' => $param],
-//                    'type'=> self::PULL_REQUEST_EVENT,
-//                ]
-//        );
-//    }
 
     public function findCommitsByTextAndDate(string $text, string $date): Cursor
     {

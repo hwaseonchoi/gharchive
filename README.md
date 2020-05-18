@@ -28,7 +28,7 @@ composer install
 
 ### Import data
 
-* Exit from the container and import data from gharchive.org calling simply this scriipt on the branch:
+* Exit from the container and import data from gharchive.org calling simply this script on the branch:
 ```terminal
 ./import-gh-archive.sh
 ```

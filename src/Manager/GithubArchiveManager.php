@@ -2,13 +2,13 @@
 
 namespace App\Manager;
 
-use App\Service\MongoDBService;
+use App\Service\MongoDBQueryService;
 
 class GithubArchiveManager
 {
     public $mongoDB;
 
-    public function __construct(MongoDBService $mongoDB)
+    public function __construct(MongoDBQueryService $mongoDB)
     {
         $this->mongoDB = $mongoDB;
     }
