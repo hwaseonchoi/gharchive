@@ -1,0 +1,65 @@
+@startuml
+allow_mixing
+scale 1
+
+actor "User" as user
+database "Github\nArchive" as gharchive
+rectangle "Github archive browser\nDocker platform" as docker_platform {
+  rectangle "nginx" as nginx {
+  }
+  rectangle "php-fpm" as php {
+
+  }
+  database "mongoDB" as mongo {
+   class "Collection gharchive-raw" as coll_gharchive_raw {
+     Raw datas from GHArchive JSON export
+   }
+   class "Collection gharchive" as coll_gharchive {
+     **_id** : commit sha or comment id or\npull request id according to the event
+     **type** : event type, e.g. PushEvent, ...
+     **actor_login** : user github login
+     **repo_name** : name of the github repository
+     **repo_url** : api url of the github repository
+     **title** : content of a pull request title, \nempty for non pull request events
+     **body** : content of a commit, a comment or \na pull request description
+     **body_url** : api url of the commit, \nempty for non commit events
+     **message_type** : commit, comment \nor pull_request
+     **created_at** : date of event, in ISO 8601\n string date
+   }
+
+  }
+}
+user -right-> nginx : browse\nhttp://localhost:81
+nginx -> php
+php -right-> coll_gharchive : query
+gharchive -down-> coll_gharchive_raw : import data
+coll_gharchive_raw -left-> coll_gharchive : filter and\n projection
+
+rectangle "Host" as host {
+  top to bottom direction
+  'left to right direction
+  component "docker-compose.yaml" as docker_compose
+  component "import-gh-archive.sh" as script_import
+  component "Symfony PHP app" as symfony
+  component "Mongo/shared\n - Mongo JS scripts\n - Imported JSON file from GH" as mongo_shared
+
+
+}
+
+nginx -[hidden]down-> host
+docker_compose -up-> docker_platform : run the platform
+symfony -up-> nginx : Volume mount\non /var/www
+symfony -up-> php : Volume mount\non /var/www
+mongo_shared -up-> mongo : Volume mount\non /shared
+
+note as note1
+  The script **import-gh-archive.sh** :
+  - downloads a data increment from
+  Github Archive
+  - stores it in a raw collection
+  dropped after use
+  - process it into the final
+  collection user for queries
+end note
+
+@enduml
