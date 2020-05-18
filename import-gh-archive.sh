@@ -2,7 +2,9 @@
 
 set -e
 
-FILE=docker/mongo/shared/$(date -v -1y '+%Y-%m-%d')-10.json
+#FILE=docker/mongo/shared/$(date -v -1y '+%Y-%m-%d')-10.json
+#FILE=docker/mongo/shared/$(date -v -1y '+%Y-%m-%d')-11.json
+FILE=docker/mongo/shared/2019-04-01-12.json
 GREEN="\033[0;32m"
 NOCOLOR="\033[0m"
 echo
@@ -11,8 +13,8 @@ echo
 
 if [ ! -f "$FILE" ]; then
 	cd docker/mongo/shared
-	wget https://data.gharchive.org/$(date -v -1y '+%Y-%m-%d')-10.json.gz
-	gunzip $(date -v -1y '+%Y-%m-%d')-10.json.gz
+	wget https://data.gharchive.org/2019-04-01-12.json.gz
+	gunzip 2019-04-01-12.json.gz
 else
 	echo "$FILE" exists already
 fi
@@ -30,9 +32,7 @@ echo
 docker exec -w /shared mongo /usr/bin/mongoimport -u root -p rootpassword \
     --authenticationDatabase admin \
     --db test --collection gharchive_raw \
-    --file 2019-05-14-10.json \
-    --file 2019-05-15-10.json \
-    --file $(date -v -1y '+%Y-%m-%d')-10.json
+    --file 2019-04-01-12.json
 
 echo
 echo -e "${GREEN}>>> Processing raw data into gharchive collection...${NOCOLOR}"

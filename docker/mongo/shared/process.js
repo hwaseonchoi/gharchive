@@ -6,11 +6,13 @@ db.gharchive_raw.aggregate(
     {
         "$project": {
          //   _id: "$payload.commits.sha", // identifie l'élément
-            _id: "$id",
+            _id: "$payload.commits.sha",
             "type" : 1,
             "actor_login" : "$actor.login",
             "repo_name" : "$repo.name",
+            "repo_url" : "$repo.url",
             "body" : "$payload.commits.message",
+            "body_url" : "$payload.commits.url",
             "message_type" : "commit", // type de message
             "created_at": "$created_at"
         }

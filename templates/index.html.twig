@@ -148,9 +148,12 @@
                                 <table class="table">
                                     <tbody>
                                     {% if model.commits is not empty %}
+
                                         {% for commit in model.commits %}
                                         <tr>
-                                            <th class="border-top-0">Commit <a href="#">{{ commit.id }}</a> sur <a href="#"> {{ commit.repo_name }} </a></th>
+                                            <th class="border-top-0">Commit <a href="{{ commit.body_url }}" target="_blank">
+                                                    {{ commit.id }}</a> sur <a href="{{ commit.repo_url }}" target="_blank"> {{ commit.repo_name }} </a>
+                                            </th>
 {#                                            <td class="border-top-0">I <strong>love</strong> this framework.</td>#}
                                             <td class="border-top-0">{{ commit.body }} </td>
                                         </tr>

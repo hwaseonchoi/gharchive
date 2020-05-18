@@ -32,13 +32,15 @@ class GithubArchiveManager
     public function findCommitsByTextAndDate(string $text, string $date = null): array
     {
         $results = [];
-        $data = $this->mongoDB->findCommitsByTextAndDate($text, '2019-05-17');
+        $data = $this->mongoDB->findCommitsByTextAndDate($text, '2019-04-01');
 
         foreach($data as $v) {
             $result = [];
             $result['id'] = $v->_id;
             $result['repo_name'] = $v->repo_name;
             $result['body'] = $v->body;
+            $result['body_url'] = $v->body_url;
+            $result['repo_url'] = $v->repo_url;
             $results[] = $result;
         }
 
