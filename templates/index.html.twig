@@ -35,7 +35,7 @@
                     <input class="form-control mr-2" name="date" type="date" value="{{ model.search.date }}">
 
                     <div class="input-group">
-                        <input type="text" name="q" class="form-control bg-light border-0 small" placeholder="Mot-clé" aria-label="Mot-clé" aria-describedby="basic-addon2">
+                        <input type="text" name="q" value="{{ model.search.text }}" class="form-control bg-light border-0 small" placeholder="Mot-clé" aria-label="Mot-clé" aria-describedby="basic-addon2">
                         <div class="input-group-append">
                             <button class="btn btn-primary" type="submit">
                                 <i class="fas fa-search fa-sm"></i>
