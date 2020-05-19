@@ -25,12 +25,17 @@ class GithubArchiveMongoDBNativeController extends AbstractController
 
         if (!$query) {
             $results = [
-                'search' =>['text'=>'', 'date'=>$date],
+                'search' =>['text' => '', 'date' => $date],
                 'total'=> 0,
-                'message' => ['commit'=>0, 'comment'=>0, 'pull_request'=>0],
+                'message' => ['commit' => 0, 'comment' => 0, 'pull_request' => 0],
                 'commits'=> [],
-                'graph' => ['dates'=>[],'commits'=>[], 'comments'=>[], 'pull_requests'=>[] ]
-                ];
+                'graph' => [
+                    'dates'=> [],
+                    'commits'=> [],
+                    'comments'=> [],
+                    'pull_requests'=> []
+                ]
+            ];
         } else {
             $results = [
                 'search' => [

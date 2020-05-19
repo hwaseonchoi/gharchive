@@ -194,9 +194,6 @@
     Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
     Chart.defaults.global.defaultFontColor = '#858796';
 
-    {#var commitNumber = '{{ model.message.commit }}';#}
-    {#var pullRequestNumber = '{{ model.message.pull_request }}';#}
-    {#var commentNumber = '{{ model.message.comment }}';#}
     var labels = {{ model.graph.dates|json_encode() }};
     var commits = {{ model.graph.commits|json_encode() }};
     var comments = {{ model.graph.comments|json_encode() }};

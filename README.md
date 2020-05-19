@@ -64,6 +64,7 @@ some documentations I've read and found interesting:
 
 - Protection against mongo query injection
 - Write a `Makefile` to make things easier
+- Add Coding Standard verification command
 - Highlight search keyword in the commit list of `selection d'évèvement`
 - Management of error view
 - Make responsive part of commit list in `selection d'évèvenement`

@@ -54,7 +54,13 @@ class GithubArchiveManager
 
     public function filterAllTypesDataByHours(string $text, string $date): array
     {
-        $result = [];
+        $result = [
+            'dates' => [],
+            'commits' => [],
+            'comments' => [],
+            'pull_requests' => [],
+        ];
+
         $data = $this->mongoDB->filterAllTypesDataByHours($text, $date);
 
         foreach ($data as $d) {
